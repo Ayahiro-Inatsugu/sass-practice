@@ -1,0 +1,79 @@
+sassはCSSを楽にコーディングできるもの
+
+1. sassファイルを作成
+2. watch.sassをクリック //コンパイル コンパイル先のcssファイルが生成される
+3. sassファイルを編集
+
+//変数
+$variables: ?;
+
+//ネスト
+#header {
+  .logo {
+    width: 300px;
+    height: 100px;
+  }
+}
+
+//ミックスイン //関数みたいなもので引数を付与したりしなかったりできる
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+#header {
+  @include border-radius(10px);
+}
+
+上記のように、@mixinで定義したものを@includeで呼び出す
+
+//継承
+%message-shared {
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 10px;
+  font-weight: bold;
+}
+
+#message {
+  @extend %message-shared;
+  border-width: 3px;
+}
+
+//演算
+$base: 5px;
+.item {
+  width: $base * 3;
+}
+
+//条件分岐
+$base: 5px;
+.item {
+  @if $base > 3 {
+    width: 10px;
+  } @else {
+    width: 20px;
+  }
+}
+
+//ループ
+@for $i from 1 through 3 {
+  .item-#{$i} { width: 2em * $i; }
+}
+
+//each
+$base: 5px;
+
+@each $member in a, b, c {
+  .#{$member} {
+    width: $base * 2;
+  }
+}
+
+//import
+@import "reset";
+
+//コメント
+// これはコメントです
+/* これもコメントです */
